@@ -1,0 +1,59 @@
+Dependencies for Project 'tav', Target 'Target 1': (DO NOT MODIFY !)
+F (.\2.c)(0x667E98EC)(--c99 -c --cpu Cortex-M0+ -D__EVAL -g -O0 --apcs=interwork --split_sections -I .\samd20 -I .\samd20\component -I .\samd20\instance -I .\samd20\pio -I .\cmsis-I.\RTE\_Target_1-IC:\Keil_v5\ARM\PACK\Keil\SAMD20_DFP\1.1.1\Device\SAMD20\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -D__SAMD20J18__-o .\objects\2.o --omf_browse .\objects\2.crf --depend .\objects\2.d)
+I (samd20_sysctrl.h)(0x5F0EE8D4)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x588BA66C)
+I (gclk.h)(0x6678FBA2)
+I (.\cmsis\core_cm0plus.h)(0x5EB94669)
+I (.\samd20\samd20.h)(0x5D720388)
+I (.\samd20\samd20j18.h)(0x54B8E22C)
+I (.\cmsis\core_cmInstr.h)(0x54B8E22C)
+I (.\cmsis\core_cmFunc.h)(0x54B8E22C)
+I (C:\Keil_v5\ARM\PACK\Keil\SAMD20_DFP\1.1.1\Device\SAMD20\Include\system_samd20.h)(0x5513B914)
+I (.\samd20\component/ac.h)(0x54B8E22C)
+I (.\samd20\component/adc.h)(0x54B8E22C)
+I (.\samd20\component/dac.h)(0x54B8E22C)
+I (.\samd20\component/dsu.h)(0x54B8E22C)
+I (.\samd20\component/eic.h)(0x54B8E22C)
+I (.\samd20\component/evsys.h)(0x54B8E22C)
+I (.\samd20\component/gclk.h)(0x589996D6)
+I (.\samd20\component/nvmctrl.h)(0x54B8E22C)
+I (.\samd20\component/pac.h)(0x54B8E22C)
+I (.\samd20\component/pm.h)(0x5B2E2C96)
+I (.\samd20\component/port.h)(0x54B8E22C)
+I (.\samd20\component/rtc.h)(0x54B8E22C)
+I (.\samd20\component/sercom.h)(0x5FCDD842)
+I (.\samd20\component/sysctrl.h)(0x5D638C3A)
+I (.\samd20\component/tc.h)(0x54B8E22C)
+I (.\samd20\component/wdt.h)(0x6678FBB3)
+I (.\samd20\instance/ac.h)(0x54B8E22C)
+I (.\samd20\instance/adc.h)(0x54B8E22C)
+I (.\samd20\instance/dac.h)(0x54B8E22C)
+I (.\samd20\instance/dsu.h)(0x54B8E22C)
+I (.\samd20\instance/eic.h)(0x54B8E22C)
+I (.\samd20\instance/evsys.h)(0x54B8E22C)
+I (.\samd20\instance/gclk.h)(0x54B8E22C)
+I (.\samd20\instance/nvmctrl.h)(0x54B8E22C)
+I (.\samd20\instance/pac0.h)(0x54B8E22C)
+I (.\samd20\instance/pac1.h)(0x54B8E22C)
+I (.\samd20\instance/pac2.h)(0x54B8E22C)
+I (.\samd20\instance/pm.h)(0x54B8E22C)
+I (.\samd20\instance/port.h)(0x54B8E22C)
+I (.\samd20\instance/rtc.h)(0x54B8E22C)
+I (.\samd20\instance/sercom0.h)(0x66755AEE)
+I (.\samd20\instance/sercom1.h)(0x54B8E22C)
+I (.\samd20\instance/sercom2.h)(0x54B8E22C)
+I (.\samd20\instance/sercom3.h)(0x5D8B8566)
+I (.\samd20\instance/sercom4.h)(0x54B8E22C)
+I (.\samd20\instance/sercom5.h)(0x54B8E22C)
+I (.\samd20\instance/sysctrl.h)(0x54B8E22C)
+I (.\samd20\instance/tc0.h)(0x54B8E22C)
+I (.\samd20\instance/tc1.h)(0x54B8E22C)
+I (.\samd20\instance/tc2.h)(0x54B8E22C)
+I (.\samd20\instance/tc3.h)(0x54B8E22C)
+I (.\samd20\instance/tc4.h)(0x54B8E22C)
+I (.\samd20\instance/tc5.h)(0x54B8E22C)
+I (.\samd20\instance/tc6.h)(0x54B8E22C)
+I (.\samd20\instance/tc7.h)(0x54B8E22C)
+I (.\samd20\instance/wdt.h)(0x54B8E22C)
+I (.\samd20\pio/samd20j18.h)(0x54B8E22C)
+F (.\startup_SAMD20.s)(0x66790F2A)(--cpu Cortex-M0+ --pd "__EVAL SETA 1" -g --apcs=interwork -I.\RTE\_Target_1-IC:\Keil_v5\ARM\PACK\Keil\SAMD20_DFP\1.1.1\Device\SAMD20\Include-IC:\Keil_v5\ARM\CMSIS\Include--pd "__UVISION_VERSION SETA 524" --pd "__SAMD20J18__ SETA 1"--list .\listings\startup_samd20.lst --xref -o .\objects\startup_samd20.o --depend .\objects\startup_samd20.d)

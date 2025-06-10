@@ -1,0 +1,6 @@
+--cpu Cortex-M0+ --pd "__EVAL SETA 1" -g --apcs=interwork 
+-I.\RTE\_Target_1
+-IC:\Keil_v5\ARM\PACK\Keil\SAMD20_DFP\1.1.1\Device\SAMD20\Include
+-IC:\Keil_v5\ARM\CMSIS\Include
+--pd "__UVISION_VERSION SETA 524" --pd "__SAMD20J18__ SETA 1"
+--list .\listings\startup_samd20.lst --xref -o .\objects\startup_samd20.o --depend .\objects\startup_samd20.d "startup_SAMD20.s"

@@ -1,0 +1,6 @@
+--c99 -c --cpu Cortex-M0+ -D__EVAL -g -O0 --apcs=interwork --split_sections
+-I.\RTE\_Target_1
+-IC:\Keil_v5\ARM\PACK\Keil\SAMD20_DFP\1.1.1\Device\SAMD20\Include
+-IC:\Keil_v5\ARM\CMSIS\Include
+-D__UVISION_VERSION="524" -D__SAMD20J18__
+-o .\objects\startup_samd20_1.o --omf_browse .\objects\startup_samd20_1.crf --depend .\objects\startup_samd20_1.d "startup_SAMD20.c"

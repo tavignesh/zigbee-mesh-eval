@@ -1,0 +1,6 @@
+--c99 -c --cpu Cortex-M0+ -D__EVAL -g -O0 --apcs=interwork --split_sections -I .\samd20 -I .\samd20\component -I .\samd20\instance -I .\samd20\pio -I .\cmsis
+-I.\RTE\_Target_1
+-IC:\Keil_v5\ARM\PACK\Keil\SAMD20_DFP\1.1.1\Device\SAMD20\Include
+-IC:\Keil_v5\ARM\CMSIS\Include
+-D__UVISION_VERSION="524" -D__SAMD20J18__
+-o .\objects\2.o --omf_browse .\objects\2.crf --depend .\objects\2.d "2.c"
