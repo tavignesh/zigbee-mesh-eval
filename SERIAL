@@ -1,0 +1,53 @@
+int main(void) {
+  uint16_t baud;     
+  gclk_init();
+  gclk_config_main_clk(GCLK_GENCTRL_SRC_OSC8M_Val);
+
+  *((int *)0x40000420U) |= 4;//(1U << 2);// PM
+        
+        
+  *((int *)0x42000800U) |= 0x1;// SERCOM0 SWRST 
+
+  while((*((int *)0x42000800U) & 1)){
+                /* The module is busy resetting itself */
+        }
+        
+  while((*((int *)0x42000800U) & 2)){
+                /* enable */
+				}              
+  while((GCLK->STATUS.reg & GCLK_STATUS_SYNCBUSY));         
+
+   {
+  uint16_t tmp= 0x400D;//GCLK_CLKCTRL_ID(peripheral_ID) | GCLK_CLKCTRL_GEN(gclk_id)| GCLK_CLKCTRL_CLKEN;
+  GCLK->CLKCTRL.reg = tmp;
+     }
+                
+  while((GCLK->STATUS.reg & GCLK_STATUS_SYNCBUSY));                
+                
+  volatile uint8_t *reg;
+  reg = (volatile uint8_t *)(0x41004445U);
+  *reg = 0x00000003;        //INEN,muxen
+  reg = (volatile uint8_t *)(0x41004444U);
+  *reg = 0x1;        //TX_MUXEN
+  reg = (volatile uint8_t *)(0x41004432U);
+  *reg = 0x33; // PORT
+                        
+                        
+  while((*((int *)0x42000810U) & (1 << 15))){}; // SYNCBUSY
+  *((uint32_t *)0x42000800U) = 0x100004;// SERCOM0 CTRLA
+  while((*((int *)0x42000810U) & (1 << 15))){}; // SYNCBUSY
+  baud = 65536 * (1 - (16 * 9600.0 / 1000000.0));//9600 BAUD
+  *((uint16_t *)0x4200080AU) = baud;
+  while((*((int *)0x42000810U) & (1 << 15))){}; // SYNCBUSY
+  *((uint32_t *)0x42000804U) = 0x30000; //  CTRLB
+  while((*((int *)0x42000810U) & (1 << 15))){}; // SYNCBUSY
+
+  while((*((int *)0x42000810U) & (1 << 15))){}; // SYNCBUSY
+  *((uint32_t *)0x42000800U) |= 0x2;// SERCOM0 CTRLA ENABLE
+
+  while (1) {
+  while((*((int *)0x42000810U) & (1 << 15))){}; // SYNCBUSY
+  *((uint16_t *)0x42000818U) = 0x0047;//c DATA
+  while((*((int *)0x42000810U) & (1 << 15))){};// SYNCBUSY
+ }
+}

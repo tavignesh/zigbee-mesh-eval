@@ -1,0 +1,108 @@
+//#include "sam.h"
+#include "samd20_sysctrl.h"
+#include "gclk.h"
+static void gclk_init(void);
+static void gclk_config_main_clk(int clk_src);
+
+
+int main(void) {
+		
+		double frm1 = 0x7E000F1000000000;
+		double frm2 = 0x0000000000fffe00;
+		double frm3 = 0x00000000000000ff;				//max 6 bytes of data
+		uint8_t csum = 0x00;
+	
+		uint8_t devid = 0x01;
+		uint8_t sbit = 0xff;
+		uint8_t ebit = 0xfe;
+		uint64_t dta = 0x2500;									
+		
+		
+	  gclk_init();
+    gclk_config_main_clk(GCLK_GENCTRL_SRC_OSC8M_Val);
+		PORT->Group[1].DIRSET.reg = 0x1000;
+		//PORT->Group[1].OUTSET.reg = 0X1000;
+
+    PM->APBCMASK.reg |= (1U << 2);// PM
+	  while(GCLK->STATUS.bit.SYNCBUSY){};
+			
+    *((int *)0x42000800U) |= 0x1;// SERCOM0 SWRST 
+    while((*((int *)0x42000800U) & 1)){
+      /* The module is busy resetting itself */
+    }
+    while((*((int *)0x42000800U) & 2)){
+             /* enable */
+     }
+    while(GCLK->STATUS.reg & GCLK_STATUS_SYNCBUSY){};         
+
+   
+    GCLK->CLKCTRL.reg = 0x400D;
+                
+    while(GCLK->STATUS.bit.SYNCBUSY & GCLK_STATUS_SYNCBUSY){};
+		PORT->Group[0].PINCFG[4].bit.PMUXEN = 1;
+		PORT->Group[0].PINCFG[5].reg = 0x3;
+		PORT->Group[0].PMUX[2].reg = 0x33;            // PORT
+    
+                        
+    while(SERCOM0->USART.STATUS.bit.SYNCBUSY | GCLK->STATUS.bit.SYNCBUSY){}; 		// SERCOM SYNCBUSY
+		SERCOM0->USART.CTRLA.reg = 0x40100004;					// SERCOM0 CTRLA
+    while(SERCOM0->USART.STATUS.bit.SYNCBUSY  | GCLK->STATUS.bit.SYNCBUSY){}; 		// SYNCBUSY
+    SERCOM0->USART.BAUD.reg = 65536 * (1 - (16 * 9600.0 / 1000000.0));//9600 BAUD
+    SERCOM0->USART.CTRLB.reg = 0x30000; 						//  CTRLB
+    while(SERCOM0->USART.STATUS.bit.SYNCBUSY | GCLK->STATUS.bit.SYNCBUSY){}; 		// SYNCBUSY
+    SERCOM0->USART.CTRLA.reg |= 0x2;					// SERCOM0 CTRLA
+    while(SERCOM0->USART.STATUS.bit.SYNCBUSY | GCLK->STATUS.bit.SYNCBUSY){};
+		
+			
+		while (1) {
+				//if(SERCOM0->USART.INTFLAG.bit.RXS){
+				//		PORT->Group[1].OUTSET.reg = 0X1000;
+				//		while(!SERCOM0->USART.INTFLAG.bit.RXC){};
+				//		while(SERCOM0->USART.STATUS.bit.SYNCBUSY | GCLK->STATUS.bit.SYNCBUSY){}; // SYNCBUSY
+				//		dd = SERCOM0->USART.DATA.reg;
+				//		while(SERCOM0->USART.STATUS.bit.SYNCBUSY | GCLK->STATUS.bit.SYNCBUSY){}; // SYNCBUSY
+						//PORT->Group[1].OUTCLR.reg = 0X1000;
+				//}
+				PORT->Group[1].OUTTGL.reg = 0X1000;
+				SERCOM0->USART.DATA.reg = sbit;
+				while(!SERCOM0->USART.INTFLAG.bit.TXC){};
+				SERCOM0->USART.DATA.reg = devid;
+				while(!SERCOM0->USART.INTFLAG.bit.TXC){};
+				SERCOM0->USART.DATA.reg = dta;
+				while(!SERCOM0->USART.INTFLAG.bit.TXC){};
+				SERCOM0->USART.DATA.reg = ebit;
+				while(!SERCOM0->USART.INTFLAG.bit.TXC){};
+				while(SERCOM0->USART.STATUS.bit.SYNCBUSY | GCLK->STATUS.bit.SYNCBUSY){};		// SYNCBUSY
+    }
+	}
+
+static void gclk_init(void) {
+ /* Enable the APB_APBA clock - where the GCLK uses this clock */
+    PM->APBAMASK.reg |= PM_APBAMASK_GCLK;
+ 
+ /* Software reset the module to ensure it is re-initialized correctly */
+    GCLK->CTRL.reg = GCLK_CTRL_SWRST;
+ 
+    while(GCLK->CTRL.reg & GCLK_CTRL_SWRST){
+	 /* wait for reset to complete */
+    }
+}
+
+
+static void gclk_config_main_clk(int clk_src) {
+ while((GCLK->STATUS.reg & GCLK_STATUS_SYNCBUSY));
+// 
+ /* Write the Divisor value to the register */
+ GCLK->GENDIV.reg  = GCLK_GENDIV_DIV(0);
+// *((uint8_t*)&GCLK->GENDIV.reg) = GCLK_GENDIV_DIV(0);// |GCLK_GENDIV_ID(gclk_id);
+ 
+ /* Wait for synchronization */
+ while((GCLK->STATUS.reg & GCLK_STATUS_SYNCBUSY));
+ GCLK->GENCTRL.reg = (GCLK->GENCTRL.reg & GCLK_GENCTRL_GENEN) | \
+					  GCLK_GENCTRL_ID(0) | GCLK_GENCTRL_RUNSTDBY | \
+					  GCLK_GENCTRL_SRC(clk_src);
+	
+ /* Wait for synchronization */
+ while((GCLK->STATUS.reg & GCLK_STATUS_SYNCBUSY));
+}
+
