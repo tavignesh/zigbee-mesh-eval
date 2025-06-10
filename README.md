@@ -1,3 +1,3 @@
 Designed and implemented a packet loss testing mechanism using 25 Zigbee modules arranged in a configurable mesh topology. The system evaluates wireless communication reliability by analyzing packet delivery under varying distances, obstacles, and environmental conditions. Developed firmware using the SAMD20 microcontroller and Keil IDE, with data collection integrated through ADCs. Gained hands-on experience with low-power wireless protocols, mesh networking behavior, and performance bottlenecks in embedded communication systems.
 <br><br> ![img](https://github.com/user-attachments/assets/8d6acd88-f027-48aa-9d49-60eac50ec763)
-<br><br> ![Screenshot](https://github.com/user-attachments/assets/6f8a22b8-133c-4ad5-ab43-c8a4f447696f)
+<br><br> ![Screenshot (9)](https://github.com/user-attachments/assets/1ca7cede-e6fd-4c7c-97b1-890470aabe82)
